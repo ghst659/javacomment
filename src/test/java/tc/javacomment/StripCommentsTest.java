@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-public class StripCommentsTests {
+public class StripCommentsTest {
     @Test
     public void testApp() {
         String source = String.join(
@@ -41,7 +41,7 @@ public class StripCommentsTests {
             );
         Reader src = new StringReader(source);
         try {
-            String clean = StripComments.stripCommentsFromFile(src);
+            String clean = StripComments.stripSource(src);
             Assert.assertEquals(expected, clean);
         } catch (IOException e) {
             Assert.fail();

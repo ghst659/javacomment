@@ -10,7 +10,7 @@ public class StripComments {
     public static void main(String[] args) {
         for (String fileName : args) {
             try (Reader source = new FileReader(fileName)) {
-                String clean = stripCommentsFromFile(source);
+                String clean = stripSource(source);
                 System.out.println(clean);
             } catch (IOException e) {
                 System.err.println(e.getMessage());
@@ -18,7 +18,7 @@ public class StripComments {
         }
     }
 
-    public static String stripCommentsFromFile(Reader source) throws IOException {
+    public static String stripSource(Reader source) throws IOException {
         StringBuffer buf = new StringBuffer();
         Machine<Character, Character> dut = new Machine<>(new CodeState(buf),
                                                           new CodeStringState(buf),
