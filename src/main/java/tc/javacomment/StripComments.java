@@ -2,18 +2,16 @@ package tc.javacomment;
 
 import tc.fsm.Machine;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 
-public class App {
+public class StripComments {
     public static void main(String[] args) {
         for (String fileName : args) {
-            try (FileReader fh = new FileReader(fileName)) {
-                String clean = stripCommentsFromFile(fh);
+            try (Reader source = new FileReader(fileName)) {
+                String clean = stripCommentsFromFile(source);
                 System.out.println(clean);
-            } catch (FileNotFoundException e) {
-                System.err.println(e.getMessage());
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             } finally {
@@ -22,7 +20,7 @@ public class App {
         }
     }
 
-    public static String stripCommentsFromFile(FileReader source) throws IOException {
+    public static String stripCommentsFromFile(Reader source) throws IOException {
         StringBuffer buf = new StringBuffer();
         Machine<Character, Character> dut = new Machine<>(new CodeState(buf),
                                                           new CodeStringState(buf),
@@ -32,8 +30,7 @@ public class App {
                                                           new CommentMultiState(buf),
                                                           new CommentMultiPreExitState(buf));
         for (int raw = source.read(); raw != -1; raw = source.read()) {
-            char ch = (char) raw;
-            dut.process(ch);
+            dut.process((char) raw);
         }
         return buf.toString();
     }
