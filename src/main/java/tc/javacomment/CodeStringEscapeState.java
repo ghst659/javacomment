@@ -8,9 +8,8 @@ public class CodeStringEscapeState extends BaseState {
     }
     @Override
     public ProcessResult<Character> process(Character ch) {
-        String target = CodeStringState.classTag(CodeStringState.class);
-        Character result = ch;
+        String nextState = CodeStringState.classTag(CodeStringState.class);
         buffer.append(ch);
-        return new ProcessResult<>(target, result);
+        return new ProcessResult<>(nextState, ch);
     }
 }

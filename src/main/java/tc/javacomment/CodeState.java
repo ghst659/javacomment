@@ -8,20 +8,19 @@ class CodeState extends BaseState {
     }
     @Override
     public ProcessResult<Character> process(Character ch) {
-        String target = this.name();
-        Character result = ch;
+        String nextState = this.name();
         switch (ch) {
             case '"':
-                target = classTag(CodeStringState.class);
+                nextState = classTag(CodeStringState.class);
                 buffer.append(ch);
                 break;
             case '/':
-                target = classTag(CommentPreState.class);
+                nextState = classTag(CommentPreState.class);
                 break;
             default:
                 buffer.append(ch);
                 break;
         }
-        return new ProcessResult<>(target, result);
+        return new ProcessResult<>(nextState, ch);
     }
 }

@@ -8,15 +8,14 @@ public class CommentMultiState extends BaseState {
     }
     @Override
     public ProcessResult<Character> process(Character ch) {
-        String target = this.name();
-        Character result = ch;
+        String nextState = this.name();
         switch (ch) {
             case '*':
-                target = classTag(CommentMultiPreExitState.class);
+                nextState = classTag(CommentMultiPreExitState.class);
                 break;
             default:
                 break;
         }
-        return new ProcessResult<>(target, result);
+        return new ProcessResult<>(nextState, ch);
     }
 }

@@ -8,16 +8,15 @@ public class CommentLineState extends BaseState {
     }
     @Override
     public ProcessResult<Character> process(Character ch) {
-        String target = this.name();
-        Character result = ch;
+        String nextState = this.name();
         switch (ch) {
             case '\n':
-                target = classTag(CodeState.class);
+                nextState = classTag(CodeState.class);
                 buffer.append(ch);
                 break;
             default:
                 break;
         }
-        return new ProcessResult<>(target, result);
+        return new ProcessResult<>(nextState, ch);
     }
 }

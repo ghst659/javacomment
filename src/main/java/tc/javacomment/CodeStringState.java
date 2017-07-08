@@ -8,19 +8,18 @@ public class CodeStringState extends BaseState {
     }
     @Override
     public ProcessResult<Character> process(Character ch) {
-        String target = this.name();
-        Character result = ch;
+        String nextState = this.name();
         switch (ch) {
             case '\\':
-                target = classTag(CodeStringEscapeState.class);
+                nextState = classTag(CodeStringEscapeState.class);
                 break;
             case '"':
-                target = classTag(CodeState.class);
+                nextState = classTag(CodeState.class);
                 break;
             default:
                 break;
         }
         buffer.append(ch);
-        return new ProcessResult<>(target, result);
+        return new ProcessResult<>(nextState, ch);
     }
 }
