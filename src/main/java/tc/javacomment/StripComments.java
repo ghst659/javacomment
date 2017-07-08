@@ -14,8 +14,6 @@ public class StripComments {
                 System.out.println(clean);
             } catch (IOException e) {
                 System.err.println(e.getMessage());
-            } finally {
-                // pass
             }
         }
     }
